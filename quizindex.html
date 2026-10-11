@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Quiz App</title>
+</head>
+
+<body style="background:white; font-family:Arial; text-align:center;">
+
+    <h2>Java Quiz App</h2>
+
+    <p>1. Which keyword is used to create a class in Java?</p>
+
+    <input type="radio" name="answer" value="A"> function
+    <br><br>
+
+    <input type="radio" name="answer" value="B"> class
+    <br><br>
+
+    <input type="radio" name="answer" value="C"> define
+    <br><br>
+
+    <input type="radio" name="answer" value="D"> create
+    <br><br>
+
+    <button onclick="checkAnswer()">Submit</button>
+
+    <p id="result"></p>
+
+    <script>
+        async function checkAnswer() {
+            let answer = document.querySelector(
+                'input[name="answer"]:checked'
+            );
+
+            if (!answer) {
+                document.getElementById("result").innerText =
+                    "Please select an answer.";
+                return;
+            }
+
+            let response = await fetch("/score", {
+                method: "POST",
+                body: answer.value
+            });
+
+            let data = await response.json();
+
+            document.getElementById("result").innerText =
+                "Your Score: " + data.score + " / 1";
+        }
+    </script>
+
+</body>
+</html>
