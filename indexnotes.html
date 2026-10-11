@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Notes App</title>
+<style>
+body { font-family: Arial; background: white; text-align: center; }
+input, textarea { display: block; width: 250px; padding: 10px; margin: 10px auto; }
+button { padding: 8px 15px; background: black; color: white; border: none; cursor: pointer; }
+.notes { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.note { width: 200px; padding: 10px; border: 1px solid #ccc; text-align: left; overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<h1>My Notes App</h1>
+<form action="/add" method="POST">
+<input name="title" placeholder="Note Title" required>
+<textarea name="content" placeholder="Write your note..." required></textarea>
+<button type="submit">Add Note</button>
+</form>
+<h2>My Notes</h2>
+<div class="notes">
+{% for note in notes %}
+<div class="note">
+<h3>{{ note.title }}</h3>
+<p>{{ note.content }}</p>
+<a href="/delete/{{ loop.index0 }}"><button>Delete</button></a>
+</div>
+{% else %}
+<p>No notes yet!</p>
+{% endfor %}
+</div>
+</body>
+</html>
